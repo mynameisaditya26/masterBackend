@@ -1,0 +1,34 @@
+RESTful API
+
+Definition:
+A RESTful API (Representational State Transfer Application Programming Interface) is a type of web service that follows the principles of REST architecture. It allows communication between client and server using standard HTTP methods.
+
+Key Principles of REST:
+1. Stateless – Each request from the client contains all necessary information, and the server does not store client state between requests.
+2. Client-Server Architecture – The client handles the user interface, while the server manages data and logic.
+3. Uniform Interface – Standardized way of interacting with resources (using URIs, HTTP methods, and media types).
+4. Resource-based – Everything is treated as a resource, identified by a unique URI.
+5. Cacheable – Responses can be cached to improve performance.
+6. Layered System – Client cannot tell whether it is directly connected to the server or an intermediate.
+
+HTTP Methods in RESTful API:
+- GET: Retrieve data from the server.
+- POST: Send data to the server to create a new resource.
+- PUT: Update an existing resource.
+- DELETE: Remove a resource.
+- PATCH: Partially update a resource.
+
+Benefits of RESTful APIs:
+- Simple and easy to use with standard HTTP protocols.
+- Language and platform independent.
+- Scalable and flexible.
+- Supports stateless communication for better performance.
+- Widely adopted across web and mobile applications.
+
+Examples:
+1. GET https://api.example.com/users – Retrieve all users.
+2. POST https://api.example.com/users – Create a new user.
+3. PUT https://api.example.com/users/5 – Update user with ID 5.
+4. DELETE https://api.example.com/users/5 – Delete user with ID 5.
+
+In short: A RESTful API is a lightweight, scalable, and flexible way for applications to communicate over the web using HTTP protocols and resource-based architecture.

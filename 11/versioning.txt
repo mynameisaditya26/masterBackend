@@ -1,0 +1,39 @@
+Versioning
+
+Definition:
+Versioning is the systematic process of assigning unique identifiers (version numbers, names, or codes) to different releases of a product, software, document, or dataset. It helps track the evolution of the item, manage changes, and maintain compatibility between different releases.
+
+Key Purposes of Versioning:
+1. Tracking Changes – Each version represents a snapshot of the system at a particular time.
+2. Collaboration – Multiple developers or teams can work on the same project while keeping track of modifications.
+3. Error Management – Bugs can be traced to specific versions, making debugging easier.
+4. Compatibility – Versioning ensures users know whether a release is backward compatible.
+5. Release Management – Helps in organizing product updates, feature additions, and patches.
+
+Types of Versioning:
+1. Sequential Versioning
+   - Uses simple numbers like v1, v2, v3.
+   - Easy to understand but lacks detail about the type of changes.
+
+2. Semantic Versioning (SemVer)
+   - Follows the MAJOR.MINOR.PATCH format (e.g., v2.3.5).
+   - MAJOR: Incompatible or significant changes.
+   - MINOR: New features, but backward-compatible.
+   - PATCH: Small fixes or improvements.
+
+3. Date-based Versioning
+   - Versions are based on the release date (e.g., Windows 10 – October 2020 Update).
+   - Useful for regular scheduled updates.
+
+Examples:
+- Google Chrome versions (e.g., 127.0.6533.88).
+- Software libraries using Semantic Versioning (e.g., React v18.2.0).
+- Documents in cloud storage (e.g., Draft_v3_final.docx).
+
+Benefits:
+- Provides clarity on what changes are made.
+- Helps maintain history of the project.
+- Ensures transparency in development.
+- Aids in user confidence by showing regular updates.
+
+In short: Versioning is an essential practice in software and document management. It not only identifies different releases but also makes collaboration, error handling, and upgrade management smoother.
