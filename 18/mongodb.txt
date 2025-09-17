@@ -1,0 +1,134 @@
+# 📘 MongoDB Theory Notes with Commands
+
+## 1. **Introduction**
+
+* MongoDB is a **NoSQL database** (non-relational).
+* It stores data in **JSON-like documents** (BSON – Binary JSON).
+* **Schema-less** → Different documents in the same collection can have different fields.
+* **Open-source** and developed by **MongoDB Inc.**
+* Works on the **client-server model**.
+
+---
+
+## 2. **Features**
+
+* **Document-oriented storage** → Data stored as `{key: value}` pairs.
+* **High Performance** → Supports indexing, replication, and sharding.
+* **Scalability** → Horizontal scaling using sharding.
+* **Flexibility** → Schema-less design.
+* **Replication** → Ensures data availability.
+
+---
+
+## 3. **Basic MongoDB Concepts**
+
+* **Database** → Container for collections.
+* **Collection** → Similar to a table (group of documents).
+* **Document** → Record in JSON format. Example:
+
+  ```json
+  { "name": "Aditya", "age": 21, "course": "B.Tech IT" }
+  ```
+* **Field** → Key-value pair inside a document.
+* **\_id** → Primary key for every document (automatically generated if not provided).
+
+---
+
+## 4. **MongoDB Commands**
+
+### 👉 **Database Commands**
+
+```bash
+show dbs                   # Show all databases
+use mydb                   # Create or switch to database
+db                         # Show current database
+db.dropDatabase()          # Delete current database
+```
+
+### 👉 **Collection Commands**
+
+```bash
+show collections           # List collections in DB
+db.createCollection("students")    # Create collection
+db.students.drop()         # Drop collection
+```
+
+### 👉 **Insert Commands**
+
+```bash
+db.students.insertOne({name: "Aditya", age: 21, course: "IT"})   # Insert one document
+db.students.insertMany([{name: "Rahul", age: 22}, {name: "Amit", age: 20}])   # Insert multiple
+```
+
+### 👉 **Read (Query) Commands**
+
+```bash
+db.students.find()         # Show all documents
+db.students.find().pretty()  # Show in readable format
+db.students.findOne({name: "Aditya"})   # Find one record
+db.students.find({age: {$gt: 20}})      # Find with condition (age > 20)
+```
+
+### 👉 **Update Commands**
+
+```bash
+db.students.updateOne({name: "Aditya"}, {$set: {age: 22}})   # Update one document
+db.students.updateMany({}, {$set: {course: "IT"}})          # Update many
+```
+
+### 👉 **Delete Commands**
+
+```bash
+db.students.deleteOne({name: "Rahul"})   # Delete one
+db.students.deleteMany({age: {$lt: 21}}) # Delete multiple
+```
+
+### 👉 **Indexing**
+
+```bash
+db.students.createIndex({name: 1})   # Create ascending index on name
+db.students.getIndexes()             # Show indexes
+```
+
+### 👉 **Aggregation**
+
+```bash
+db.students.aggregate([
+  { $group: { _id: "$course", total: { $sum: 1 } } }
+])
+# Groups students by course and counts them
+```
+
+---
+
+## 5. **Data Types in MongoDB**
+
+* String
+* Integer
+* Double
+* Boolean
+* Array
+* Object
+* Date
+* Null
+* ObjectId
+
+---
+
+## 6. **Advantages**
+
+* Flexible schema
+* High performance
+* Easy to scale
+* Rich query language
+* Good for big data and real-time apps
+
+---
+
+## 7. **Limitations**
+
+* High memory usage
+* No joins (but supports `$lookup`)
+* Less suitable for complex transactions
+
+---
