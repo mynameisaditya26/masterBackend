@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Management</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-zinc-900 text-zinc-200 min-h-screen flex items-center justify-center">
+  <div class="w-full max-w-4xl bg-zinc-800 p-8 rounded-2xl shadow-xl">
+    <h1 class="text-3xl font-bold text-center text-blue-400 mb-6">User Management</h1>
+
+    <!-- Add User Form -->
+    <form method="POST" action="/users/add" class="flex flex-col md:flex-row gap-3 mb-6">
+      <input type="text" name="name" placeholder="Name" required
+        class="flex-1 p-2 bg-zinc-700 border border-zinc-600 rounded-lg focus:outline-none focus:ring focus:ring-blue-500 text-zinc-100 placeholder-zinc-400" />
+      <input type="email" name="email" placeholder="Email" required
+        class="flex-1 p-2 bg-zinc-700 border border-zinc-600 rounded-lg focus:outline-none focus:ring focus:ring-blue-500 text-zinc-100 placeholder-zinc-400" />
+      <input type="number" name="age" placeholder="Age"
+        class="w-24 p-2 bg-zinc-700 border border-zinc-600 rounded-lg focus:outline-none focus:ring focus:ring-blue-500 text-zinc-100 placeholder-zinc-400" />
+      <button type="submit"
+        class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+        Add
+      </button>
+    </form>
+
+    <!-- User List -->
+    <div class="overflow-x-auto">
+      <table class="w-full border-collapse">
+        <thead>
+          <tr class="bg-zinc-700 text-zinc-300">
+            <th class="p-2 border border-zinc-600">Name</th>
+            <th class="p-2 border border-zinc-600">Email</th>
+            <th class="p-2 border border-zinc-600">Age</th>
+            <th class="p-2 border border-zinc-600">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% users.forEach(user => { %>
+            <tr class="hover:bg-zinc-700">
+              <td class="p-2 border border-zinc-700"><%= user.name %></td>
+              <td class="p-2 border border-zinc-700"><%= user.email %></td>
+              <td class="p-2 border border-zinc-700"><%= user.age %></td>
+              <td class="p-2 border border-zinc-700 flex gap-2 justify-center">
+                <!-- Update Form -->
+                <form method="POST" action="/users/update/<%= user._id %>" class="flex gap-2">
+                  <input type="text" name="name" value="<%= user.name %>"
+                    class="p-1 bg-zinc-700 border border-zinc-600 rounded w-24 text-zinc-100" />
+                  <input type="email" name="email" value="<%= user.email %>"
+                    class="p-1 bg-zinc-700 border border-zinc-600 rounded w-32 text-zinc-100" />
+                  <input type="number" name="age" value="<%= user.age %>"
+                    class="p-1 bg-zinc-700 border border-zinc-600 rounded w-16 text-zinc-100" />
+                  <button type="submit"
+                    class="bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700 transition">
+                    Update
+                  </button>
+                </form>
+                <!-- Delete -->
+                <a href="/users/delete/<%= user._id %>"
+                  class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 transition">
+                  Delete
+                </a>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>
