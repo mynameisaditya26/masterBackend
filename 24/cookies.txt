@@ -1,0 +1,246 @@
+Here’s a **complete, beginner-friendly note on Cookies in Node.js** — perfect for your study or viva preparation 👇
+
+---
+
+# 🍪 **Cookies in Node.js — Complete Notes**
+
+---
+
+## 🔹 1. What is a Cookie?
+
+A **cookie** is a small piece of data stored on the **client’s browser** by the server.
+It is used to remember information about the user between multiple HTTP requests.
+
+📘 **Example:** When you log into a website, a cookie stores your login info so you don’t have to log in again every time you reload the page.
+
+---
+
+## 🔹 2. Why are Cookies Used?
+
+Cookies are mainly used for:
+
+1. **Session Management** – Login sessions, shopping carts, authentication.
+2. **Personalization** – Themes, user preferences, language settings.
+3. **Tracking and Analytics** – User behavior, activity tracking for analytics.
+
+---
+
+## 🔹 3. How Cookies Work
+
+1. The **server sends a cookie** to the client using the `Set-Cookie` HTTP header.
+2. The **browser stores** the cookie locally.
+3. Every time the client sends a request to the same server, the cookie is **automatically sent back** with the request.
+4. The server uses the cookie to **recognize** the user.
+
+---
+
+## 🔹 4. Setting Up Cookies in Node.js
+
+You can manage cookies in Node.js using two methods:
+
+### ➤ **A. Using Raw HTTP Module**
+
+```js
+const http = require('http');
+
+http.createServer((req, res) => {
+  // Set cookie
+  res.setHeader('Set-Cookie', 'username=Aditya');
+  res.writeHead(200, { 'Content-Type': 'text/html' });
+  res.end('Cookie has been set!');
+}).listen(3000);
+```
+
+✅ Here, the cookie `username=Aditya` is sent to the client.
+
+---
+
+### ➤ **B. Using Express.js and cookie-parser**
+
+`cookie-parser` is a popular middleware to simplify cookie handling.
+
+#### Step 1: Install the package
+
+```bash
+npm install express cookie-parser
+```
+
+#### Step 2: Import and use it
+
+```js
+const express = require('express');
+const cookieParser = require('cookie-parser');
+
+const app = express();
+app.use(cookieParser()); // middleware
+
+// Set a cookie
+app.get('/setcookie', (req, res) => {
+  res.cookie('username', 'Aditya', { maxAge: 60000, httpOnly: true });
+  res.send('Cookie has been set!');
+});
+
+// Get a cookie
+app.get('/getcookie', (req, res) => {
+  res.send(req.cookies);
+});
+
+// Delete a cookie
+app.get('/deletecookie', (req, res) => {
+  res.clearCookie('username');
+  res.send('Cookie deleted!');
+});
+
+app.listen(3000, () => console.log('Server running on http://localhost:3000'));
+```
+
+---
+
+## 🔹 5. Cookie Options
+
+When setting a cookie with Express, you can configure several properties:
+
+| Option     | Description                                                   |
+| ---------- | ------------------------------------------------------------- |
+| `maxAge`   | Sets cookie expiry time in milliseconds.                      |
+| `expires`  | Sets a specific date/time when cookie expires.                |
+| `httpOnly` | Prevents JavaScript from accessing the cookie (for security). |
+| `secure`   | Ensures cookie is sent only over HTTPS.                       |
+| `path`     | Restricts cookie to a specific route.                         |
+| `domain`   | Specifies which domain the cookie belongs to.                 |
+| `sameSite` | Controls whether cookie is sent with cross-site requests.     |
+
+📘 **Example:**
+
+```js
+res.cookie('token', '12345', {
+  maxAge: 3600000,
+  httpOnly: true,
+  secure: true,
+  sameSite: 'strict'
+});
+```
+
+---
+
+## 🔹 6. Reading Cookies
+
+Using `cookie-parser`, all cookies are available in:
+
+```js
+req.cookies
+```
+
+📘 **Example:**
+
+```js
+app.get('/profile', (req, res) => {
+  const user = req.cookies.username;
+  res.send(`Welcome back, ${user}`);
+});
+```
+
+---
+
+## 🔹 7. Deleting Cookies
+
+To delete a cookie:
+
+```js
+res.clearCookie('username');
+res.send('Cookie deleted!');
+```
+
+👉 This sends a cookie with the same name and an **expired date**, so the browser removes it.
+
+---
+
+## 🔹 8. Types of Cookies
+
+| Type                   | Description                                            |
+| ---------------------- | ------------------------------------------------------ |
+| **Session Cookies**    | Temporary cookies deleted when browser closes.         |
+| **Persistent Cookies** | Remain on the client until they expire or are deleted. |
+| **Secure Cookies**     | Sent only over HTTPS.                                  |
+| **HttpOnly Cookies**   | Not accessible by JavaScript (prevent XSS attacks).    |
+
+---
+
+## 🔹 9. Security Best Practices
+
+1. Use `httpOnly` to prevent JavaScript access.
+2. Use `secure` flag on HTTPS.
+3. Set `sameSite='Strict'` to prevent CSRF attacks.
+4. Never store sensitive data like passwords in cookies.
+5. Encrypt or sign cookies for added security.
+
+---
+
+## 🔹 10. Example: Login Session with Cookie
+
+```js
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const app = express();
+
+app.use(cookieParser());
+
+app.get('/login', (req, res) => {
+  res.cookie('user', 'Aditya', { httpOnly: true });
+  res.send('User logged in!');
+});
+
+app.get('/dashboard', (req, res) => {
+  if (req.cookies.user) {
+    res.send(`Welcome back, ${req.cookies.user}`);
+  } else {
+    res.send('Please login first!');
+  }
+});
+
+app.get('/logout', (req, res) => {
+  res.clearCookie('user');
+  res.send('Logged out successfully!');
+});
+
+app.listen(3000);
+```
+
+---
+
+## 🔹 11. Cookie vs Session
+
+| Feature    | Cookie                          | Session                |
+| ---------- | ------------------------------- | ---------------------- |
+| Storage    | Stored in browser               | Stored on server       |
+| Security   | Less secure                     | More secure            |
+| Lifetime   | Can persist after browser close | Ends when session ends |
+| Size limit | ~4 KB                           | No strict limit        |
+| Speed      | Fast (no server lookup)         | Slightly slower        |
+
+---
+
+## 🔹 12. Real-life Use Cases
+
+1. Remember user login (authentication)
+2. Store theme (dark/light)
+3. Track items in shopping cart
+4. Save user preferences
+5. Analytics (like Google Analytics cookies)
+
+---
+
+# ✅ **Summary**
+
+| Concept       | Description                           |
+| ------------- | ------------------------------------- |
+| Cookie        | Data stored in the client browser.    |
+| Library       | `cookie-parser` in Node.js/Express.   |
+| Set Cookie    | `res.cookie('key', 'value', options)` |
+| Get Cookie    | `req.cookies.key`                     |
+| Delete Cookie | `res.clearCookie('key')`              |
+| Security      | Use `httpOnly`, `secure`, `sameSite`  |
+
+---
+
+Would you like me to make this into a **well-formatted PDF note** (with proper headers, code blocks, and tables) for download and printing?
